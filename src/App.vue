@@ -2,7 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/gamestats">Game</router-link>
+      <router-link to="/gamestats">Games</router-link> |
+      <router-link to="/achistats">Achievements</router-link> |
+      <router-link to="/playerstats">Players</router-link> 
     </div>
     <router-view/>
   </div>
@@ -28,5 +30,10 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.loading-animation {
+  height: 128px;
+  width: 128px;
 }
 </style>
