@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/gamestats">Games</router-link> |
-      <router-link to="/achistats">Achievements</router-link> |
+      <router-link to="/achievements">Achievements</router-link> |
       <router-link to="/playerstats">Players</router-link> 
     </div>
     <router-view/>

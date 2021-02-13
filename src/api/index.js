@@ -16,5 +16,18 @@ export default {
         return axios.get(API_PATH+'/least-owned-games', {
             params: apiParams
         });
+    },
+    mostPopularAchievementDates: (selectedMonth, selectedYear) => {
+        var apiParams = {};
+        // Ako su prosledjena oba, samo ih onda uzimamo u obzir
+        // a bice undefined (sto se tumaci kao false) ako nisu
+        if(selectedMonth && selectedYear) {
+            apiParams.month = selectedMonth;
+            apiParams.year = selectedYear;
+        }
+        
+        return axios.get(API_PATH+'/most-popular-dates-achievements', {
+            params: apiParams
+        });
     }
 }
