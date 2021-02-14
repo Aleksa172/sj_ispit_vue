@@ -29,5 +29,16 @@ export default {
         return axios.get(API_PATH+'/most-popular-dates-achievements', {
             params: apiParams
         });
-    }
+    },
+    hardestAchievements: (limit) => {
+        var apiParams = {};
+        if(limit) {
+            apiParams.limit = limit;
+        }
+
+        return axios.get(API_PATH+'/hardest-achievements', {
+            params: apiParams
+        });
+    },
+
 }

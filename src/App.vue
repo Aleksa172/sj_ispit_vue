@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/gamestats">Games</router-link> |
       <router-link to="/achievements">Achievements</router-link> |
-      <router-link to="/playerstats">Players</router-link> 
+      <router-link to="/players">Players</router-link> 
     </div>
     <router-view/>
   </div>
@@ -17,6 +17,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0 auto;
+  max-width: 1366px;
 }
 
 #nav {

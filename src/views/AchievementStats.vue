@@ -8,6 +8,47 @@
         </div>
         <Loader v-if="isLoading.popularAchievementDates"/>
         <JSCharting v-if="!isLoading.popularAchievementDates" :options="popularAchievementDatesPoints" :mutable="true"></JSCharting>
+        <hr/>
+        <h3> Hardest 
+            <select v-model="hardestAchievementLimit">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+            </select>
+            achievements to come by </h3>
+        <div>
+            <b-table-simple>
+                <b-thead>
+                    <b-tr>
+                        <b-th>Achievement</b-th>
+                        <b-th>Game</b-th>
+                        <b-th>Times achieved</b-th>
+                    </b-tr>
+                </b-thead>
+                <b-tbody>
+                    <b-tr v-for="row in hardestAchievementsPoints" :key="row.id">
+                        <b-td>{{ row.name }}</b-td>
+                        <b-td>{{ row.game_name }} 
+                            <a :href="row.url" target='_blank'><b-icon-link45deg></b-icon-link45deg></a>
+                            
+                        </b-td>
+                        <b-td>{{ row.obtained_count }}</b-td>
+                    </b-tr>
+                </b-tbody>
+            </b-table-simple>
+        </div>
     </div>
 </template>
 
@@ -28,6 +69,10 @@ export default {
         api.mostPopularAchievementDates().then((res) => {
             this.popularAchievementDatesData = res.data.data;
             this.isLoading.popularAchievementDates=false;
+        })
+        api.hardestAchievements(this.hardestAchievementLimit).then((res) => {
+            this.hardestAchievementData = res.data.data;
+            this.isLoading.hardestAchievements=false;
         })
     },
     methods: {
@@ -56,8 +101,11 @@ export default {
             selectedYear: moment().get('year'),
             isLoading: {
                 popularAchievementDates: true,
+                hardestAchievements: true
             },
+            hardestAchievementLimit: 5,
             popularAchievementDatesData: [],
+            hardestAchievementData: [],
             name: 'columnChart',
         }
     },
@@ -125,6 +173,24 @@ export default {
                 ]
             }
         },
+        hardestAchievementsPoints() {
+            var apiData = this.hardestAchievementData;
+            var data = [];
+
+            // ovde nema neke velike potrebe za prepakivanjem podataka
+            for(var i=0; i<apiData.length; i++) {
+                data.push({
+                    id: apiData[i].id,
+                    name: apiData[i].name,
+                    game_id: apiData[i].game_id,
+                    game_name: apiData[i].game_name,
+                    obtained_count: apiData[i].obtained_count,
+                    url: utils.getGameInfoLink(apiData[i].game_id)
+                })
+            }
+
+            return data;
+        }
     },
     watch: {
             selectedMonth(newVal) {
@@ -132,6 +198,13 @@ export default {
                 api.mostPopularAchievementDates(this.selectedMonth, this.selectedYear).then((res) => {
                     this.popularAchievementDatesData = res.data.data;
                     this.isLoading.popularAchievementDates=false;
+                })
+            },
+            hardestAchievementLimit(newVal) {
+                this.isLoading.hardestAchievementData=true;
+                api.hardestAchievements(this.hardestAchievementLimit).then((res) => {
+                    this.hardestAchievementData = res.data.data;
+                    this.isLoading.hardestAchievementData;                    
                 })
             }
         }
