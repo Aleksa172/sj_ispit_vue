@@ -28,7 +28,8 @@
                 <option>15</option>
             </select>
             achievements to come by </h3>
-        <div>
+        <Loader v-if="isLoading.hardestAchievements"/>
+        <div v-if="!isLoading.hardestAchievements">
             <b-table-simple>
                 <b-thead>
                     <b-tr>
@@ -201,10 +202,10 @@ export default {
                 })
             },
             hardestAchievementLimit(newVal) {
-                this.isLoading.hardestAchievementData=true;
+                this.isLoading.hardestAchievements=true;
                 api.hardestAchievements(this.hardestAchievementLimit).then((res) => {
                     this.hardestAchievementData = res.data.data;
-                    this.isLoading.hardestAchievementData;                    
+                    this.isLoading.hardestAchievements = false;              
                 })
             }
         }

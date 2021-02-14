@@ -40,5 +40,11 @@ export default {
             params: apiParams
         });
     },
+    playersWithMostGames: () => {
+        return axios.get(API_PATH+'/players-with-most-games')
+    },
+    playersWithMostAchievements: () => {
+        return axios.get(API_PATH+'/players-with-most-achievements')
+    }
 
 }
